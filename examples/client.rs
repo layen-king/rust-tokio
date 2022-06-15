@@ -58,7 +58,9 @@ async fn main() {
     // 将消息通道接收者 rx 的所有权转移到管理任务中
     let manager = tokio::spawn(async move {
         // 建立到 redis 服务器的连接
-        let mut client = client::connect("127.0.0.1:6379").await.expect("connect failed");
+        let mut client = client::connect("127.0.0.1:6379")
+            .await
+            .expect("connect failed");
         // 开始接收消息
         while let Some(cmd) = rx.recv().await {
             use Command::*;
