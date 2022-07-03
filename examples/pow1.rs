@@ -28,8 +28,8 @@ fn main() {
     let (sender, receiver) = mpsc::channel();
     for i in 0..THREADS {
         // 复制发送者
-        let sender_n = sender.clone();
-        thread::spawn(move || find(i, sender_n));
+        let sender = sender.clone();
+        thread::spawn(move || find(i, sender));
     }
     match receiver.recv() {
         Ok(Solution(i, hash)) => {
