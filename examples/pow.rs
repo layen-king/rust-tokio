@@ -10,7 +10,7 @@ const BASE: usize = 42;
 /// 使用线程数
 const THREADS: usize = 8;
 
-static DIFFICULTY: &'static str = "0000";
+static DIFFICULTY: &'static str = "000000";
 struct Solution(usize, String);
 
 fn main() {
@@ -39,7 +39,7 @@ fn main() {
                 i, hash, DIFFICULTY
             );
             let duration = start_time.elapsed();
-            println!("useing time :{:?}", duration);
+            println!("using time :{:?}", duration);
         }
         Err(_) => {
             panic!("worker thread disconnected")
