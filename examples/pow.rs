@@ -34,12 +34,12 @@ fn main() {
     match receiver.recv() {
         Ok(Solution(i, hash)) => {
             println!("Found the solution:");
-            let duration = start_time.elapsed();
-            println!("useing time :{:?}", duration);
             println!(
                 "the number is :{}, and hash result is :{}, target is:{}",
                 i, hash, DIFFICULTY
             );
+            let duration = start_time.elapsed();
+            println!("useing time :{:?}", duration);
         }
         Err(_) => {
             panic!("worker thread disconnected")

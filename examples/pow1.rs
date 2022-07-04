@@ -3,6 +3,7 @@ use crypto::sha2::Sha256;
 use once_cell::sync::Lazy;
 use std::sync::{mpsc, RwLock};
 use std::thread;
+use std::time::Instant;
 
 /// 全局锁,是否查找到目标值
 static IS_SOLUTION_FOUND: Lazy<RwLock<bool>> = Lazy::new(|| RwLock::new(false));
@@ -22,6 +23,7 @@ fn main() {
     );
     println!("Started {} threads", THREADS);
     println!("please wait...");
+    let start_time = Instant::now();
     // 通道
     let (sender, receiver) = mpsc::channel();
     for i in 0..THREADS {
@@ -36,6 +38,8 @@ fn main() {
                 "the number is :{}, and hash result is :{}, target is:{}",
                 i, hash, DIFFICULTY
             );
+            let duration = start_time::elapsed();
+            println!("useing time :{:?}", duration);
         }
         Err(_) => {
             panic!("worker thread disconnected")
