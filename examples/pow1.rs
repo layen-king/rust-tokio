@@ -4,7 +4,7 @@ use std::sync::{mpsc, RwLock};
 use std::thread;
 use once_cell::sync::Lazy;
 
-/// 全局锁
+/// 全局锁,是否查找到目标值
 static IS_SOLUTION_FOUND:Lazy<RwLock<bool>> = Lazy::new(||{
   RwLock::new(false)
 });
