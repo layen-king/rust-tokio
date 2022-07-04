@@ -3,6 +3,7 @@ use crypto::sha2::Sha256;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{mpsc, Arc};
 use std::thread;
+use std::time::Instant;
 
 /// 基准值
 const BASE: usize = 42;
@@ -19,6 +20,7 @@ fn main() {
     );
     println!("Started {} threads", THREADS);
     println!("please wait...");
+    let start_time = Instant::now();
     // 全局原子
     let is_solution_found = Arc::new(AtomicBool::new(false));
     // 通道
@@ -32,7 +34,12 @@ fn main() {
     match receiver.recv() {
         Ok(Solution(i, hash)) => {
             println!("Found the solution:");
-            println!("the number is :{}, and hash result is :{}", i, hash);
+            let duration = start_time.elapsed();
+            println!("useing time :{:?}", duration);
+            println!(
+                "the number is :{}, and hash result is :{}, target is:{}",
+                i, hash, DIFFICULTY
+            );
         }
         Err(_) => {
             panic!("worker thread disconnected")

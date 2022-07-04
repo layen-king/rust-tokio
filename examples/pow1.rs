@@ -1,13 +1,11 @@
 use crypto::digest::Digest;
 use crypto::sha2::Sha256;
+use once_cell::sync::Lazy;
 use std::sync::{mpsc, RwLock};
 use std::thread;
-use once_cell::sync::Lazy;
 
 /// 全局锁,是否查找到目标值
-static IS_SOLUTION_FOUND:Lazy<RwLock<bool>> = Lazy::new(||{
-  RwLock::new(false)
-});
+static IS_SOLUTION_FOUND: Lazy<RwLock<bool>> = Lazy::new(|| RwLock::new(false));
 
 /// 基准值
 const BASE: usize = 42;
@@ -34,7 +32,10 @@ fn main() {
     match receiver.recv() {
         Ok(Solution(i, hash)) => {
             println!("Found the solution:");
-            println!("the number is :{}, and hash result is :{}", i, hash);
+            println!(
+                "the number is :{}, and hash result is :{}, target is:{}",
+                i, hash, DIFFICULTY
+            );
         }
         Err(_) => {
             panic!("worker thread disconnected")
