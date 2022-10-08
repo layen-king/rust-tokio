@@ -19,7 +19,7 @@ fn main() {
         BASE, DIFFICULTY
     );
     println!("Started {} threads", THREADS);
-    println!("please wait...");
+    println!("Please wait...");
     let start_time = Instant::now();
     // 全局原子
     let is_solution_found = Arc::new(AtomicBool::new(false));
@@ -35,14 +35,14 @@ fn main() {
         Ok(Solution(i, hash)) => {
             println!("Found the solution:");
             println!(
-                "the number is :{}, and hash result is :{}, target is:{}",
+                "The number is :{}, and hash result is :{}, target is:{}",
                 i, hash, DIFFICULTY
             );
             let duration = start_time.elapsed();
-            println!("using time :{:?}", duration);
+            println!("Using time :{:?}", duration);
         }
         Err(_) => {
-            panic!("worker thread disconnected")
+            panic!("Worker thread disconnected")
         }
     }
 }
