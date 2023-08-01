@@ -5,6 +5,10 @@ version = "0.1.0"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+# 添加此行以允许警告
+#[profile.release]
+#rustflags = ["-C", "warnings=off"]
+
 [dependencies]
 bytes = "1"
 itertools = "0.10.0"
